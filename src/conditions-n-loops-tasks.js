@@ -538,8 +538,6 @@ function getNearestBigger(number) {
   return +secondNumber;
 }
 
-console.log(getNearestBigger(123450));
-
 module.exports = {
   isPositive,
   getMaxNumber,
