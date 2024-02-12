@@ -70,8 +70,18 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  const queenX = queen.x;
+  const queenY = queen.y;
+  const kingX = king.x;
+  const kingY = king.y;
+
+  return (
+    queenX === kingX ||
+    queenY === kingY ||
+    queenX + queenY === kingX + kingY ||
+    (queenX === queenY && kingX === kingY)
+  );
 }
 
 /**
@@ -121,8 +131,42 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  function getUnderThree(symbol, number) {
+    let result = '';
+    for (let i = 0; i < number; i += 1) {
+      result += symbol;
+    }
+    return result;
+  }
+
+  function transformUnits(number) {
+    let res = '';
+    if (number <= 3) {
+      res += getUnderThree('I', number);
+    } else if (number === 4) {
+      res += 'IV';
+    } else if (number === 5) {
+      res += 'V';
+    } else if (number <= 8) {
+      res += 'V';
+      res += getUnderThree('I', number % 5);
+    } else {
+      res += 'IX';
+    }
+    return res;
+  }
+
+  const numberStr = num.toFixed(0);
+
+  let result = '';
+  if (numberStr.length === 2) {
+    result += getUnderThree('X', +numberStr[0]);
+    result += transformUnits(+numberStr[1]);
+  } else {
+    result += transformUnits(num);
+  }
+  return result;
 }
 
 /**
